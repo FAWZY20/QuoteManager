@@ -34,9 +34,9 @@ public class UtilisateurService implements UtilisateurControler {
     }
 
     @Override
-    public ResponseEntity<Utilisateur> getUtilisateur(String email) throws Exception {
+    public ResponseEntity<Utilisateur> getUtilisateur(Long userId) throws Exception {
         try {
-            Utilisateur utilisateurs = utilisateurRepository.findByEmail(email);
+            Utilisateur utilisateurs = utilisateurRepository.findUtilisateurById(userId);
             return new ResponseEntity<>(utilisateurs, HttpStatus.OK);
         }catch (Exception e){
             throw new Exception("Aucun utilisateur trouvee");

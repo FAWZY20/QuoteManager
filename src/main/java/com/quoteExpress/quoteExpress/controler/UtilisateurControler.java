@@ -13,8 +13,8 @@ public interface UtilisateurControler {
     @GetMapping("/utilisateurs")
     ResponseEntity<List<Utilisateur>> getClients() throws Exception;
 
-    @GetMapping("/utilisateur/{email}")
-    ResponseEntity<Utilisateur> getUtilisateur(@PathVariable("email") String email) throws Exception;
+    @GetMapping("/utilisateur/{utilisateurId}")
+    ResponseEntity<Utilisateur> getUtilisateur(@PathVariable("utilisateurId") Long utilisateurId) throws Exception;
 
     @PostMapping("/utilisateur")
     ResponseEntity<String> addUtilisateur(@RequestBody Utilisateur utilisateur) throws Exception;
