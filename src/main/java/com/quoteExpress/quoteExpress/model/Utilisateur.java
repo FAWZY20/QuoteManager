@@ -27,19 +27,19 @@ public class Utilisateur {
     @Column(name = "mdp")
     private String mdp;
 
-    @Column(name = "dateInscription")
-    private Date dateInscription;
+    @Column(name = "dateinscription")
+    private Date dateinscription = new Date();;
 
-    @Column(name = "dateConnexion")
-    private Date dateConnexion;
+    @Column(name = "dateconnexion")
+    private Date dateconnexion;
 
-    public Utilisateur(String nom, String prenom, String email, String mdp, Date dateConnexion) {
+    public Utilisateur(String nom, String prenom, String email, String mdp, Date dateconnexion, Date dateinscription) {
         this.nom = nom;
         this.prenom = prenom;
         this.email = email;
         this.mdp = mdp;
-        this.dateInscription = new Date();
-        this.dateConnexion = dateConnexion;
+        this.dateinscription = dateinscription;
+        this.dateconnexion = dateconnexion;
     }
 
     public Utilisateur(){}
@@ -77,14 +77,14 @@ public class Utilisateur {
     }
 
     public Date getDateInscription() {
-        return dateInscription;
+        return dateinscription;
     }
 
     public Date getDateConnexion() {
-        return dateConnexion;
+        return dateconnexion;
     }
 
     public void setDateConnexion(Date dateConnexion) {
-        this.dateConnexion = dateConnexion;
+        this.dateconnexion = dateConnexion;
     }
 }

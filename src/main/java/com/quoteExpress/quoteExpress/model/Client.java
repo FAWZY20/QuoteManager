@@ -1,9 +1,6 @@
 package com.quoteExpress.quoteExpress.model;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 import java.util.Date;
 
@@ -12,6 +9,8 @@ import java.util.Date;
 public class Client {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEQ")
+    @SequenceGenerator(name = "SEQ", sequenceName = "VEHICLE_SEQ", allocationSize = 1)
     private Long id;
 
     @Column(name = "nomEntreprise")
@@ -29,8 +28,8 @@ public class Client {
     @Column(name = "adresse")
     private String adresse;
 
-    @Column(name = "codePostal")
-    private int code_postal;
+    @Column(name = "codepostal")
+    private int codepostal;
 
     @Column(name = "ville")
     private String ville;
@@ -38,8 +37,8 @@ public class Client {
     @Column(name = "pays")
     private String pays;
 
-    @Column(name = "date_inscription")
-    private Date date_inscription;
+    @Column(name = "dateinscription")
+    private Date dateinscription = new Date();
 
     @Column(name = "statut")
     private Status statut;
@@ -50,8 +49,9 @@ public class Client {
     @Column(name = "siret")
     private String siret;
 
-    enum Status{
-        Particulier, Entreprise
+    public enum Status{
+        Particulier,
+        Entreprise
     }
 
     public Client(String nomEntreprise,
@@ -59,26 +59,28 @@ public class Client {
                   String email,
                   String telephone,
                   String adresse,
-                  int code_postal,
+                  int codepostal,
                   String ville,
                   String pays,
-                  Date date_inscription,
                   Status statut,
                   String notes,
-                  String siret) {
+                  String siret,
+                  Date dateinscription ) {
         this.nomEntreprise = nomEntreprise;
         this.nomContact = nomContact;
         this.email = email;
         this.telephone = telephone;
         this.adresse = adresse;
-        this.code_postal = code_postal;
+        this.codepostal = codepostal;
         this.ville = ville;
         this.pays = pays;
-        this.date_inscription = date_inscription;
+        this.dateinscription = dateinscription;
         this.statut = statut;
         this.notes = notes;
         this.siret = siret;
     }
+
+    public Client(){}
 
     public String getNomEntreprise() {
         return nomEntreprise;
@@ -121,11 +123,11 @@ public class Client {
     }
 
     public int getCode_postal() {
-        return code_postal;
+        return codepostal;
     }
 
     public void setCode_postal(int code_postal) {
-        this.code_postal = code_postal;
+        this.codepostal = code_postal;
     }
 
     public String getVille() {
@@ -144,12 +146,8 @@ public class Client {
         this.pays = pays;
     }
 
-    public Date getDate_inscription() {
-        return date_inscription;
-    }
-
-    public void setDate_inscription(Date date_inscription) {
-        this.date_inscription = date_inscription;
+    public Date getDateInscription() {
+        return dateinscription;
     }
 
     public Status getStatut() {

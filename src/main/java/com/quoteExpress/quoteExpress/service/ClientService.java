@@ -32,9 +32,9 @@ public class ClientService implements ClientController {
     }
 
     @Override
-    public ResponseEntity<Client> getClient(String clientEmail) {
+    public ResponseEntity<Client> getClient(Long clientId) {
        try {
-           Client client = clientRepository.findByEmail(clientEmail);
+           Client client = clientRepository.findClientById(clientId);
            return new ResponseEntity<>(client, HttpStatus.OK);
        }catch (RuntimeException e){
            throw new RuntimeException("aucun client trouvee");
@@ -45,13 +45,13 @@ public class ClientService implements ClientController {
     public ResponseEntity<String> addClient(Client client) throws Exception {
         try {
             if (clientRepository.findByEmail(client.getEmail()) == null){
-                clientRepository.save(client);
+                  clientRepository.save(client);
                 return new ResponseEntity<>("le client a bien etait ajouter", HttpStatus.OK);
             } else {
                 return new ResponseEntity<>("le client existe deja", HttpStatus.OK);
             }
         }catch (Exception e){
-            throw new Exception("le client n'a pas pu etre ajouter");
+            throw new Exception("le client n'a pas pu etre ajouter :" + e);
         }
     }
 

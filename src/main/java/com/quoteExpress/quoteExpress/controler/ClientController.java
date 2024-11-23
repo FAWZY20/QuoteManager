@@ -12,8 +12,8 @@ public interface ClientController {
     @GetMapping("/clients")
     ResponseEntity<List<Client>> getClients() throws Exception;
 
-    @GetMapping("/client/{clientEmail}")
-    ResponseEntity<Client> getClient(@PathVariable("clientEmail") String clientEmail);
+    @GetMapping("/client/{clientId}")
+    ResponseEntity<Client> getClient(@PathVariable("clientId") Long clientId);
 
     @PostMapping("/client")
     ResponseEntity<String> addClient(@RequestBody Client client) throws Exception;
