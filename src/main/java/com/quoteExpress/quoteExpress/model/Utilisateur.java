@@ -27,6 +27,7 @@ public class Utilisateur {
     @Column(name = "mdp")
     private String mdp;
 
+<<<<<<< HEAD
     @Column(name = "nomEntreprise")
     private String nomEntreprise;
 
@@ -52,12 +53,15 @@ public class Utilisateur {
     @Column(name = "siret")
     private String siret;
 
+=======
+>>>>>>> a42f7aa1ab5f80a0acf0814146be39b18456ac95
     @Column(name = "dateinscription")
     private Date dateinscription = new Date();;
 
     @Column(name = "dateconnexion")
     private Date dateconnexion;
 
+<<<<<<< HEAD
     public enum Status{
         Particulier,
         Entreprise
@@ -77,10 +81,14 @@ public class Utilisateur {
                        String siret,
                        Date dateinscription,
                        Date dateconnexion) {
+=======
+    public Utilisateur(String nom, String prenom, String email, String mdp, Date dateconnexion, Date dateinscription) {
+>>>>>>> a42f7aa1ab5f80a0acf0814146be39b18456ac95
         this.nom = nom;
         this.prenom = prenom;
         this.email = email;
         this.mdp = mdp;
+<<<<<<< HEAD
         this.nomEntreprise = nomEntreprise;
         this.telephone = telephone;
         this.adresse = adresse;
@@ -89,6 +97,8 @@ public class Utilisateur {
         this.pays = pays;
         this.statut = statut;
         this.siret = siret;
+=======
+>>>>>>> a42f7aa1ab5f80a0acf0814146be39b18456ac95
         this.dateinscription = dateinscription;
         this.dateconnexion = dateconnexion;
     }
@@ -127,6 +137,7 @@ public class Utilisateur {
         this.mdp = mdp;
     }
 
+<<<<<<< HEAD
     public String getNomEntreprise() {
         return nomEntreprise;
     }
@@ -205,5 +216,17 @@ public class Utilisateur {
 
     public void setDateconnexion(Date dateconnexion) {
         this.dateconnexion = dateconnexion;
+=======
+    public Date getDateInscription() {
+        return dateinscription;
+    }
+
+    public Date getDateConnexion() {
+        return dateconnexion;
+    }
+
+    public void setDateConnexion(Date dateConnexion) {
+        this.dateconnexion = dateConnexion;
+>>>>>>> a42f7aa1ab5f80a0acf0814146be39b18456ac95
     }
 }
