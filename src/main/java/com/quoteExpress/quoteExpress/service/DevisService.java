@@ -45,11 +45,11 @@ public class DevisService implements DevisController {
     @Override
     public ResponseEntity<String> addDevis(Devis devis) throws Exception {
         try{
-            devis.setDevis(generateDevis(devis));
             devis.getDetails().forEach( res -> {
                     res.setPrixTotal(res.getPrix() * res.getQuantite());
             });
             devisRepository.save(devis);
+            devis.setDevis(generateDevis(devis));
             return new ResponseEntity<>("le devis a bien etait ajouter", HttpStatus.OK);
         }catch (Exception e){
             throw new Exception("le devis n'a pas pu etre ajouter ", e);
