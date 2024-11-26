@@ -76,7 +76,7 @@ public class DevisService implements DevisController {
         for (var res : devis.getDetails()) {
             tva += res.getPrixTotal();
         }
-        int tvaFinale = tva * (1 + devis.getTva() / 100);
+        int tvaFinale = tva *  devis.getTva() / 100;
         return  tvaFinale;
     }
 
