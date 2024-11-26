@@ -89,14 +89,8 @@ public class UtilisateurService implements UtilisateurControler {
     public ResponseEntity<String> updateUtilisateurConnexion(Long utilisateurId) throws Exception {
         try {
             Utilisateur uti = utilisateurRepository.findUtilisateurById(utilisateurId);
-<<<<<<< HEAD
             uti.setDateconnexion(new Date());
             utilisateurRepository.save(uti);
-=======
-            uti.setDateConnexion(new Date());
-            utilisateurRepository.save(uti);
-
->>>>>>> a42f7aa1ab5f80a0acf0814146be39b18456ac95
             return new ResponseEntity<>("date de connexion modifier", HttpStatus.OK);
         }catch (Exception e){
             throw new Exception("date de connexion n'a pas pu etre modifer");

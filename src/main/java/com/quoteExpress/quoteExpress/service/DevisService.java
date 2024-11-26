@@ -1,6 +1,5 @@
 package com.quoteExpress.quoteExpress.service;
 
-<<<<<<< HEAD
 import com.quoteExpress.quoteExpress.controler.DevisController;
 import com.quoteExpress.quoteExpress.model.Client;
 import com.quoteExpress.quoteExpress.model.Devis;
@@ -275,10 +274,4 @@ public class DevisService implements DevisController {
             throw new RuntimeException("Erreur lors de la génération du devis", e);
         }
     }
-=======
-import org.springframework.stereotype.Service;
-
-@Service
-public class DevisService {
->>>>>>> a42f7aa1ab5f80a0acf0814146be39b18456ac95
 }

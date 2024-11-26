@@ -60,14 +60,11 @@
 			<artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
 			<version>2.3.0</version>
 		</dependency>
-<<<<<<< HEAD
 		<dependency>
 			<groupId>org.apache.poi</groupId>
 			<artifactId>poi-ooxml</artifactId>
 			<version>5.2.3</version>
 		</dependency>
-=======
->>>>>>> a42f7aa1ab5f80a0acf0814146be39b18456ac95
 	</dependencies>
 
 	<build>
