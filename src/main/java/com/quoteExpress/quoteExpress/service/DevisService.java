@@ -15,7 +15,13 @@ import org.springframework.stereotype.Service;
 
 import java.io.*;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 @Service
 public class DevisService implements DevisController {
@@ -45,6 +51,8 @@ public class DevisService implements DevisController {
     @Override
     public ResponseEntity<String> addDevis(Devis devis) throws Exception {
         try{
+            devis.setNumerodevis(generateNumeroDevis());
+            devis.setStatus(Devis.Status.ATTENTE);
             devis.getDetails().forEach( res -> {
                     res.setPrixTotal(res.getPrix() * res.getQuantite());
             });
@@ -56,9 +64,25 @@ public class DevisService implements DevisController {
         }
     }
 
+
     @Override
-    public ResponseEntity<String> updateDevis(Long devisId, Devis devis) {
-        return null;
+    public ResponseEntity<String> updateStatutDevis(Long devisId, String statuts) throws Exception {
+        try {
+            Devis dvs = devisRepository.findDevisById(devisId);
+
+            if (statuts == "ACCEPT"){
+                dvs.setStatus(Devis.Status.ACCEPT);
+            } else if (statuts == "REFUSE"){
+                dvs.setStatus(Devis.Status.REFUSE);
+            } else if (statuts == "EXPIRE"){
+                dvs.setStatus(Devis.Status.EXPIRE);
+            }
+            dvs.setDatevalidation(new Date());
+            devisRepository.save(dvs);
+            return new ResponseEntity<>("le status a etait changer", HttpStatus.OK);
+        }catch (Exception e){
+            throw new Exception("le statut n'a pas reussi aetre modifier");
+        }
     }
 
     @Override
@@ -88,6 +112,15 @@ public class DevisService implements DevisController {
         return  total;
     }
 
+    private String generateNumeroDevis(){
+        List<Integer> listNumero = new ArrayList<>();
+        for (int i = 0; i < 10; i++) {
+            listNumero.add(ThreadLocalRandom.current().nextInt(1,9));
+        }
+        String nDevis = listNumero.stream().map(String::valueOf).collect(Collectors.joining(""));
+        return nDevis;
+    }
+
     private File generateDevis(Devis devis){
         Utilisateur utilisateur = utilisateurRepository.findUtilisateurById(devis.getUtilisateurid());
         Client client = clientRepository.findClientById(devis.getClientid());
@@ -100,8 +133,6 @@ public class DevisService implements DevisController {
         File file = new File("Devis.docx");
 
         try(XWPFDocument document = new XWPFDocument(); FileOutputStream fos = new FileOutputStream(file)){
-
-            // paragraphe qui afiche les information de l'utilisateur
 
             XWPFParagraph paragraph2 = document.createParagraph();
             XWPFRun run2 = paragraph2.createRun();

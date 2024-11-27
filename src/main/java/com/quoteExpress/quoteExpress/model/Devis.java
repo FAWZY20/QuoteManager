@@ -27,7 +27,7 @@ public class Devis {
     @Column(name = "utilisateurid")
     private Long utilisateurid;
     @Column(name = "numerodevis")
-    private Long numerodevis;
+    private String numerodevis;
 
     @Column(name = "datecreation")
     private Date datecreation = new Date();
@@ -48,13 +48,13 @@ public class Devis {
     @Column(name = "tva")
     private int tva;
 
-    enum Status{
+    public enum Status{
         ATTENTE, ACCEPT, REFUSE, EXPIRE
     }
 
     public Devis(Long clientid,
                  Long utilisateurid,
-                 Long numerodevis,
+                 String numerodevis,
                  Date datecreation,
                  Date datevalidation,
                  Status status, File devis,
@@ -89,11 +89,11 @@ public class Devis {
         this.utilisateurid = utilisateurid;
     }
 
-    public Long getNumerodevis() {
+    public String getNumerodevis() {
         return numerodevis;
     }
 
-    public void setNumerodevis(Long numerodevis) {
+    public void setNumerodevis(String numerodevis) {
         this.numerodevis = numerodevis;
     }
 

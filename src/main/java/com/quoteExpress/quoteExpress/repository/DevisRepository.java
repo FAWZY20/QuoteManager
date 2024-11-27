@@ -11,4 +11,6 @@ public interface DevisRepository extends JpaRepository<Devis, Long> {
 
     List<Devis> findDevisByUtilisateurid(Long utilisateurId);
     Devis findDevisByUtilisateuridAndId(Long utilisateurId, Long devisId);
+
+    Devis findDevisById(Long devisId);
 }

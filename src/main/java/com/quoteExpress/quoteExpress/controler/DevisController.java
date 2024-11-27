@@ -20,11 +20,10 @@ public interface DevisController {
     @PostMapping("/devis")
     ResponseEntity<String> addDevis(@RequestBody Devis devis) throws Exception;
 
-    @PutMapping("/Devis/{devisId}")
-    ResponseEntity<String> updateDevis(@PathVariable("devisId") Long devisId,
-                                       @RequestBody Devis devis);
+    @PatchMapping("/devis/statut/{devisId}")
+    ResponseEntity<String> updateStatutDevis(@PathVariable("devisId") Long devisId,@RequestBody String statuts) throws Exception;
 
-    @DeleteMapping("/Devis/{devisId}")
+    @DeleteMapping("/devis/{devisId}")
     ResponseEntity<String> deleteDevis(@PathVariable("devisId") Long devisId) throws Exception;
 
 }
