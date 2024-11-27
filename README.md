@@ -13,7 +13,7 @@
 ## Prérequis
 - Java 17 ou plus récent.
 - Maven 3.8+.
-- Une base de données relationnelle (PostgreSQL, MySQL, etc.).
+- Une base de données relationnelle PostgreSQL.
 
 ## Installation
 1. Clonez le dépôt :
