@@ -4,6 +4,7 @@ import com.quoteExpress.quoteExpress.model.Devis;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.List;
 
 @RestController
@@ -15,7 +16,7 @@ public interface DevisController {
 
     @GetMapping("/devis/{utilisateurId}/{devisId}")
     ResponseEntity<String> dowloadDevis(@PathVariable("utilisateurId") Long utilisateurId,
-                                   @PathVariable("devisId") Long devisId) throws FileNotFoundException;
+                                   @PathVariable("devisId") Long devisId) throws IOException;
 
     @PostMapping("/devis")
     ResponseEntity<String> addDevis(@RequestBody Devis devis) throws Exception;

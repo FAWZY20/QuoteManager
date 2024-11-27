@@ -44,8 +44,21 @@ public class DevisService implements DevisController {
     }
 
     @Override
-    public ResponseEntity<String> dowloadDevis(Long utilisateurId, Long devisId) throws FileNotFoundException {
-        return null;
+    public ResponseEntity<String> dowloadDevis(Long utilisateurId, Long devisId) throws IOException {
+
+        Devis devis = devisRepository.findDevisById(devisId);
+        File outputFile = new File("devisTelecharger.docx");
+
+       try( FileInputStream fis = new FileInputStream(devis.getDevis().getAbsolutePath());
+            FileOutputStream fileOut = new FileOutputStream(outputFile);
+            XWPFDocument document = new XWPFDocument(fis);) {
+
+            document.write(fileOut);
+
+            return new ResponseEntity<>("votre devis c'est telecharger", HttpStatus.OK);
+       }catch (IOException e){
+            throw new IOException("le devis ne c'est aps telecharger");
+       }
     }
 
     @Override
@@ -56,8 +69,8 @@ public class DevisService implements DevisController {
             devis.getDetails().forEach( res -> {
                     res.setPrixTotal(res.getPrix() * res.getQuantite());
             });
-            devisRepository.save(devis);
             devis.setDevis(generateDevis(devis));
+            devisRepository.save(devis);
             return new ResponseEntity<>("le devis a bien etait ajouter", HttpStatus.OK);
         }catch (Exception e){
             throw new Exception("le devis n'a pas pu etre ajouter ", e);
@@ -69,7 +82,6 @@ public class DevisService implements DevisController {
     public ResponseEntity<String> updateStatutDevis(Long devisId, String statuts) throws Exception {
         try {
             Devis dvs = devisRepository.findDevisById(devisId);
-
             if (statuts == "ACCEPT"){
                 dvs.setStatus(Devis.Status.ACCEPT);
             } else if (statuts == "REFUSE"){
