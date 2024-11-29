@@ -2,6 +2,7 @@ package com.quoteExpress.quoteExpress.service;
 
 import com.quoteExpress.quoteExpress.controler.DevisController;
 import com.quoteExpress.quoteExpress.model.Client;
+import com.quoteExpress.quoteExpress.model.DetailsDevis;
 import com.quoteExpress.quoteExpress.model.Devis;
 import com.quoteExpress.quoteExpress.model.Utilisateur;
 import com.quoteExpress.quoteExpress.repository.ClientRepository;
@@ -40,6 +41,12 @@ public class DevisService implements DevisController {
     @Override
     public ResponseEntity<List<Devis>> getAllDevis(Long utilisateurId) {
         List<Devis> devis = devisRepository.findDevisByUtilisateurid(utilisateurId);
+        return new ResponseEntity<>(devis, HttpStatus.OK);
+    }
+
+    @Override
+    public ResponseEntity<Devis> getDevis(Long devisId) {
+        Devis devis = devisRepository.findDevisById(devisId);
         return new ResponseEntity<>(devis, HttpStatus.OK);
     }
 
@@ -95,6 +102,22 @@ public class DevisService implements DevisController {
         }catch (Exception e){
             throw new Exception("le statut n'a pas reussi aetre modifier");
         }
+    }
+
+    @Override
+    public ResponseEntity<String> addDetail(Long devisId, DetailsDevis detailsDevis) {
+        Devis devis = devisRepository.findDevisById(devisId);
+        devis.getDetails().add(detailsDevis);
+        devisRepository.save(devis);
+        return new ResponseEntity<>("le detail a bien etait ajouter", HttpStatus.OK);
+    }
+
+    @Override
+    public ResponseEntity<String> deleteDetail(Long devisId, int index) {
+        Devis devis = devisRepository.findDevisById(devisId);
+        devis.getDetails().remove(devis.getDetails().get(index));
+        devisRepository.save(devis);
+        return new ResponseEntity<>("le detail a bien etait supprimer", HttpStatus.OK);
     }
 
     @Override

@@ -1,6 +1,6 @@
 package com.quoteExpress.quoteExpress.model;
 
-import jakarta.persistence.Embeddable;
+import jakarta.persistence.*;
 
 @Embeddable
 public class DetailsDevis {
