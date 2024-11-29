@@ -39,15 +39,24 @@ public class DevisService implements DevisController {
     }
 
     @Override
-    public ResponseEntity<List<Devis>> getAllDevis(Long utilisateurId) {
-        List<Devis> devis = devisRepository.findDevisByUtilisateurid(utilisateurId);
-        return new ResponseEntity<>(devis, HttpStatus.OK);
+    public ResponseEntity<List<Devis>> getAllDevis(Long utilisateurId) throws Exception {
+        try {
+            List<Devis> devis = devisRepository.findDevisByUtilisateurid(utilisateurId);
+            return new ResponseEntity<>(devis, HttpStatus.OK);
+        }catch (Exception e){
+            e.printStackTrace();
+            throw new Exception("aucun devis n'a etait trouvee");
+        }
     }
 
     @Override
-    public ResponseEntity<Devis> getDevis(Long devisId) {
-        Devis devis = devisRepository.findDevisById(devisId);
-        return new ResponseEntity<>(devis, HttpStatus.OK);
+    public ResponseEntity<Devis> getDevis(Long devisId) throws Exception {
+        try{
+            Devis devis = devisRepository.findDevisById(devisId);
+            return new ResponseEntity<>(devis, HttpStatus.OK);
+        }catch (Exception e){
+            throw new Exception("aucun devis et trouver");
+        }
     }
 
     @Override
@@ -105,19 +114,27 @@ public class DevisService implements DevisController {
     }
 
     @Override
-    public ResponseEntity<String> addDetail(Long devisId, DetailsDevis detailsDevis) {
-        Devis devis = devisRepository.findDevisById(devisId);
-        devis.getDetails().add(detailsDevis);
-        devisRepository.save(devis);
-        return new ResponseEntity<>("le detail a bien etait ajouter", HttpStatus.OK);
+    public ResponseEntity<String> addDetail(Long devisId, DetailsDevis detailsDevis) throws Exception {
+        try {
+            Devis devis = devisRepository.findDevisById(devisId);
+            devis.getDetails().add(detailsDevis);
+            devisRepository.save(devis);
+            return new ResponseEntity<>("le detail a bien etait ajouter", HttpStatus.OK);
+        }catch (Exception e){
+            throw new Exception("le detail n'a pas pu etre ajouter");
+        }
     }
 
     @Override
-    public ResponseEntity<String> deleteDetail(Long devisId, int index) {
-        Devis devis = devisRepository.findDevisById(devisId);
-        devis.getDetails().remove(devis.getDetails().get(index));
-        devisRepository.save(devis);
-        return new ResponseEntity<>("le detail a bien etait supprimer", HttpStatus.OK);
+    public ResponseEntity<String> deleteDetail(Long devisId, int index) throws Exception {
+        try {
+            Devis devis = devisRepository.findDevisById(devisId);
+            devis.getDetails().remove(devis.getDetails().get(index));
+            devisRepository.save(devis);
+            return new ResponseEntity<>("le detail a bien etait supprimer", HttpStatus.OK);
+        }catch (Exception e){
+            throw new Exception("le detail n'a pas pu etre supprimer");
+        }
     }
 
     @Override
@@ -130,33 +147,48 @@ public class DevisService implements DevisController {
         }
     }
 
-    private int calculeTva(Devis devis){
-        int tva = 0;
-        for (var res : devis.getDetails()) {
-            tva += res.getPrixTotal();
+    private int calculeTva(Devis devis) throws Exception {
+        try {
+            int tva = 0;
+            for (var res : devis.getDetails()) {
+                tva += res.getPrixTotal();
+            }
+            int tvaFinale = tva *  devis.getTva() / 100;
+            return  tvaFinale;
+        }catch (Exception e){
+            e.printStackTrace();
+            throw new Exception("la tva n'a pas pu etre calculer");
         }
-        int tvaFinale = tva *  devis.getTva() / 100;
-        return  tvaFinale;
     }
 
-    private int calculeTotalHt(Devis devis){
-        int total = 0;
-        for (var res : devis.getDetails()) {
-            total += res.getPrixTotal();
+    private int calculeTotalHt(Devis devis) throws Exception {
+        try {
+            int total = 0;
+            for (var res : devis.getDetails()) {
+                total += res.getPrixTotal();
+            }
+            return  total;
+        }catch (Exception e){
+            e.printStackTrace();
+            throw new Exception("le totalHt n'a pas pu etre calculer");
         }
-        return  total;
     }
 
-    private String generateNumeroDevis(){
-        List<Integer> listNumero = new ArrayList<>();
-        for (int i = 0; i < 10; i++) {
-            listNumero.add(ThreadLocalRandom.current().nextInt(1,9));
+    private String generateNumeroDevis() throws Exception {
+        try {
+            List<Integer> listNumero = new ArrayList<>();
+            for (int i = 0; i < 10; i++) {
+                listNumero.add(ThreadLocalRandom.current().nextInt(1,9));
+            }
+            String nDevis = listNumero.stream().map(String::valueOf).collect(Collectors.joining(""));
+            return nDevis;
+        }catch (Exception e){
+            e.printStackTrace();
+            throw new Exception("le numero de devis n'a pas pu etre modifier");
         }
-        String nDevis = listNumero.stream().map(String::valueOf).collect(Collectors.joining(""));
-        return nDevis;
     }
 
-    private File generateDevis(Devis devis){
+    private File generateDevis(Devis devis) throws Exception {
         Utilisateur utilisateur = utilisateurRepository.findUtilisateurById(devis.getUtilisateurid());
         Client client = clientRepository.findClientById(devis.getClientid());
         int tvaSum = calculeTva(devis);

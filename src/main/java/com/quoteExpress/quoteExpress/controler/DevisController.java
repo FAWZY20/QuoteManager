@@ -13,10 +13,10 @@ import java.util.List;
 public interface DevisController {
 
     @GetMapping("/devis/{utilisateurId}")
-    ResponseEntity<List<Devis>> getAllDevis(@PathVariable("utilisateurId") Long utilisateurId);
+    ResponseEntity<List<Devis>> getAllDevis(@PathVariable("utilisateurId") Long utilisateurId) throws Exception;
 
     @GetMapping("/devis")
-    ResponseEntity<Devis> getDevis(@RequestParam Long devisId);
+    ResponseEntity<Devis> getDevis(@RequestParam Long devisId) throws Exception;
 
     @GetMapping("/devis/{utilisateurId}/{devisId}")
     ResponseEntity<String> dowloadDevis(@PathVariable("utilisateurId") Long utilisateurId,
@@ -29,10 +29,10 @@ public interface DevisController {
     ResponseEntity<String> updateStatutDevis(@PathVariable("devisId") Long devisId,@RequestBody String statuts) throws Exception;
 
     @PatchMapping("/devis/detail/{devisId}")
-    ResponseEntity<String> addDetail(@PathVariable("devisId") Long devisId, @RequestBody DetailsDevis detailsDevis);
+    ResponseEntity<String> addDetail(@PathVariable("devisId") Long devisId, @RequestBody DetailsDevis detailsDevis) throws Exception;
 
     @DeleteMapping("/devis/detail/{devisId}/{index}")
-    ResponseEntity<String> deleteDetail(@PathVariable("devisId") Long devisId,@PathVariable("index") int index);
+    ResponseEntity<String> deleteDetail(@PathVariable("devisId") Long devisId,@PathVariable("index") int index) throws Exception;
 
     @DeleteMapping("/devis/{devisId}")
     ResponseEntity<String> deleteDevis(@PathVariable("devisId") Long devisId) throws Exception;
