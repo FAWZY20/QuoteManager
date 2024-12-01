@@ -24,7 +24,7 @@ public class UtilisateurService implements UtilisateurControler {
 
 
     @Override
-    public ResponseEntity<List<Utilisateur>> getClients() throws Exception {
+    public ResponseEntity<List<Utilisateur>> getAllUtilisateur() throws Exception {
         try {
             List<Utilisateur> utilisateurs = utilisateurRepository.findAll();
             return new ResponseEntity<>(utilisateurs, HttpStatus.OK);
@@ -44,13 +44,13 @@ public class UtilisateurService implements UtilisateurControler {
     }
 
     @Override
-    public ResponseEntity<String> addUtilisateur(Utilisateur utilisateur) throws Exception {
+    public ResponseEntity<Boolean> addUtilisateur(Utilisateur utilisateur) throws Exception {
         try {
             if (utilisateurRepository.findByEmail(utilisateur.getEmail()) == null) {
                 utilisateurRepository.save(utilisateur);
-                return new ResponseEntity<>("L'utilisateur a etait ajouter", HttpStatus.OK);
+                return ResponseEntity.ok(true);
             }else {
-                return new ResponseEntity<>("L'utilisateur existe deja", HttpStatus.OK);
+                return (ResponseEntity<Boolean>) ResponseEntity.badRequest();
             }
         }catch (Exception e){
             throw new Exception("L'utilisateur n'a pas pu etre ajouter ajouter");
@@ -58,10 +58,10 @@ public class UtilisateurService implements UtilisateurControler {
     }
 
     @Override
-    public ResponseEntity<String> deleteUtilisateur(Long utilisateurId) throws Exception {
+    public ResponseEntity<Boolean> deleteUtilisateur(Long utilisateurId) throws Exception {
         try {
             utilisateurRepository.deleteById(utilisateurId);
-            return new ResponseEntity<>("L'utilisateur a etait supprimer", HttpStatus.OK);
+            return ResponseEntity.ok(true);
         }catch (Exception e){
             throw new Exception("L'utilisateur n'a pas pu etre supprimer :" + e);
         }

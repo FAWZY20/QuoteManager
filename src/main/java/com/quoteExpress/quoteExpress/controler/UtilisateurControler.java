@@ -11,16 +11,16 @@ import java.util.List;
 public interface UtilisateurControler {
 
     @GetMapping("/utilisateurs")
-    ResponseEntity<List<Utilisateur>> getClients() throws Exception;
+    ResponseEntity<List<Utilisateur>> getAllUtilisateur() throws Exception;
 
     @GetMapping("/utilisateur/{utilisateurId}")
     ResponseEntity<Utilisateur> getUtilisateur(@PathVariable("utilisateurId") Long utilisateurId) throws Exception;
 
     @PostMapping("/utilisateur")
-    ResponseEntity<String> addUtilisateur(@RequestBody Utilisateur utilisateur) throws Exception;
+    ResponseEntity<Boolean> addUtilisateur(@RequestBody Utilisateur utilisateur) throws Exception;
 
     @DeleteMapping("/utilisateur/{utilisateurId}")
-    ResponseEntity<String> deleteUtilisateur(@PathVariable("utilisateurId") Long utilisateurId) throws Exception;
+    ResponseEntity<Boolean> deleteUtilisateur(@PathVariable("utilisateurId") Long utilisateurId) throws Exception;
 
     @PatchMapping("/utilisateur/{utilisateurId}")
     ResponseEntity<String> updateUtilisateur(@PathVariable("utilisateurId") Long utilisateurId, @RequestBody Utilisateur utilisateur) throws Exception;
