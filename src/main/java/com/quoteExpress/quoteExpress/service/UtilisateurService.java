@@ -6,6 +6,7 @@ import com.quoteExpress.quoteExpress.repository.UtilisateurRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
@@ -17,9 +18,12 @@ public class UtilisateurService implements UtilisateurControler {
 
     private final UtilisateurRepository utilisateurRepository;
 
+    private final PasswordEncoder passwordEncoder;
+
     @Autowired
-    public UtilisateurService(UtilisateurRepository utilisateurRepository) {
+    public UtilisateurService(UtilisateurRepository utilisateurRepository, PasswordEncoder passwordEncoder) {
         this.utilisateurRepository = utilisateurRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
 
@@ -47,6 +51,7 @@ public class UtilisateurService implements UtilisateurControler {
     public ResponseEntity<Boolean> addUtilisateur(Utilisateur utilisateur) throws Exception {
         try {
             if (utilisateurRepository.findByEmail(utilisateur.getEmail()) == null) {
+                utilisateur.setMdp(passwordEncoder.encode(utilisateur.getMdp()));
                 utilisateurRepository.save(utilisateur);
                 return ResponseEntity.ok(true);
             }else {
@@ -74,7 +79,7 @@ public class UtilisateurService implements UtilisateurControler {
 
             uti.setNom(utilisateur.getNom());
             uti.setPrenom(utilisateur.getNom());
-            uti.setMdp(utilisateur.getMdp());
+            uti.setMdp(passwordEncoder.encode(utilisateur.getMdp()));
             uti.setEmail(utilisateur.getEmail());
 
             utilisateurRepository.save(uti);

@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.util.List;
 
 @RestController
+@RequestMapping("/user")
 public interface DevisController {
 
     @GetMapping("/devis/{utilisateurId}")
