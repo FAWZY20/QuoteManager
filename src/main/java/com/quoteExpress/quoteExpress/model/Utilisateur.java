@@ -59,9 +59,6 @@ public class Utilisateur {
     private Date dateconnexion;
 
 
-    @Column(name = "role")
-    private String role = "USER";
-
     public enum Status{
         Particulier,
         Entreprise
@@ -77,7 +74,6 @@ public class Utilisateur {
                        int codepostal,
                        String ville,
                        String pays,
-                       String role,
                        Status statut,
                        String siret,
                        Date dateinscription,
@@ -94,7 +90,6 @@ public class Utilisateur {
         this.pays = pays;
         this.statut = statut;
         this.siret = siret;
-        this.role = role;
         this.dateinscription = dateinscription;
         this.dateconnexion = dateconnexion;
     }
@@ -127,14 +122,6 @@ public class Utilisateur {
 
     public String getEmail() {
         return email;
-    }
-
-    public String getRole() {
-        return role;
-    }
-
-    public void setRole(String role) {
-        this.role = role;
     }
 
     public void setEmail(String email) {

@@ -3,12 +3,16 @@ package com.quoteExpress.quoteExpress.service;
 import com.quoteExpress.quoteExpress.controler.UtilisateurControler;
 import com.quoteExpress.quoteExpress.model.Utilisateur;
 import com.quoteExpress.quoteExpress.repository.UtilisateurRepository;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.security.SecureRandom;
+import java.util.Base64;
 import java.util.Date;
 import java.util.List;
 
@@ -25,7 +29,6 @@ public class UtilisateurService implements UtilisateurControler {
         this.utilisateurRepository = utilisateurRepository;
         this.passwordEncoder = passwordEncoder;
     }
-
 
     @Override
     public ResponseEntity<List<Utilisateur>> getAllUtilisateur() throws Exception {
@@ -101,4 +104,6 @@ public class UtilisateurService implements UtilisateurControler {
             throw new Exception("date de connexion n'a pas pu etre modifer");
         }
     }
+
+
 }
