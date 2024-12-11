@@ -1,4 +1,4 @@
-package com.quoteExpress.quoteExpress.service;
+package com.quoteExpress.quoteExpress.configuration;
 
 import com.quoteExpress.quoteExpress.model.Utilisateur;
 import com.quoteExpress.quoteExpress.repository.UtilisateurRepository;

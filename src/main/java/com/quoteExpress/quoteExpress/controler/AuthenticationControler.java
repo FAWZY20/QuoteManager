@@ -3,10 +3,9 @@ package com.quoteExpress.quoteExpress.controler;
 
 import com.quoteExpress.quoteExpress.model.Utilisateur;
 import com.quoteExpress.quoteExpress.repository.UtilisateurRepository;
-import com.quoteExpress.quoteExpress.service.JwtUtils;
+import com.quoteExpress.quoteExpress.configuration.JwtUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
